@@ -1,9 +1,11 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
   <title>Evento Q&A - Replicando Slido</title>
 </head>
 <body>
@@ -12,8 +14,10 @@
   </header>
   
   <section class="ask-question">
-    <form class="login-form" id="question-form" method="post">
+    <form class="login-form" id="question-form" method="post" action="{% url 'create_visitor' %}">
+      {% csrf_token %}
       <h2>Entre no evento!</h2>
+      {{ form }}
       <button type="submit">Entrar</button>
     </form>
   </section>
