@@ -1,6 +1,11 @@
 from django.shortcuts import render, redirect
 from slido_app.forms import CreateVisitorForm
 from slido_app.models import Visitor, Question
+from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticated
+from rest_framework_simplejwt.authentication import JWTAuthentication
+
+from slido_app.serializers import QuestionSerializer
 
 
 def index(request):
@@ -42,3 +47,10 @@ def create_question(request):
     )
 
     return redirect("homepage")
+
+
+class QuestionViewSet(viewsets.ModelViewSet):
+    queryset = Question.objects.all()
+    serializer_class = QuestionSerializer
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
