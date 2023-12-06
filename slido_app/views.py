@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from slido_app.forms import CreateVisitorForm
 from slido_app.models import Visitor, Question
 from rest_framework import viewsets
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from slido_app.serializers import QuestionSerializer
@@ -53,4 +53,4 @@ class QuestionViewSet(viewsets.ModelViewSet):
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticatedOrReadOnly]
